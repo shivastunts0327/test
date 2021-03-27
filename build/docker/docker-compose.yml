@@ -6,7 +6,7 @@ services:
   # ---------------------------
   api-gateway:
     container_name: "api-gateway"
-    hostname: "api-gateway"
+    hostname: "10.5.1.128"
     build: ../../api-gateway/target
     ports:
       - "8080:8080"
@@ -25,7 +25,7 @@ services:
   # ---------------------------
   service-one:
     container_name: "service-one"
-    hostname: "service-one"
+    hostname: "10.5.1.128"
     build: ../../service-one/target
     ports:
       - "8082:8082"
@@ -44,7 +44,7 @@ services:
   # ---------------------------
   service-one-db:
     container_name: "service-one-db"
-    hostname: "serviceonedb"
+    hostname: "10.5.128"
     image: "mongo:3.7"
     environment:
       - MONGODB_USER="service-one" 
@@ -67,7 +67,7 @@ services:
   # ---------------------------
   service-two:
     container_name: "service-two"
-    hostname: "service-two"
+    hostname: "10.5.1.128"
     build: ../../service-two/target
     ports:
       - "8084:8084"
@@ -86,7 +86,7 @@ services:
   # ---------------------------
   service-two-db:
     container_name: "service-two-db"
-    hostname: "servicetwodb"
+    hostname: "10.5.1.128"
     image: "mysql/mysql-server:5.7"
     environment:
       - MYSQL_ROOT_PASSWORD=root123
@@ -123,7 +123,7 @@ services:
   rabbit:
     image: rabbitmq:3.8-management-alpine
     container_name: rabbit-mq
-    hostname: rabbitmq
+    hostname: 10.5.1.128
     ports:
       - "5672:5672"
       - "15672:15672"
@@ -145,7 +145,7 @@ services:
   consul:
     image: consul:1.7.3
     container_name: "consul"
-    hostname: "consul"
+    hostname: "10.5.1.128"
     command: consul agent -server -client 0.0.0.0 -ui -bootstrap-expect=3 -data-dir=/consul/data -retry-join=consul2 -retry-join=consul3 -datacenter=blr
     ports:
       - "8500:8500"
@@ -213,7 +213,7 @@ services:
     expose:
       - "5601"
     environment:
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - ELASTICSEARCH_URL=http://10.5.1.128:9200
     links:
       - elasticsearch
     networks:
@@ -229,7 +229,7 @@ services:
     environment:
       - "cluster.name=elasticsearch"
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - "discovery.zen.ping.unicast.hosts=127.0.0.1"
+      - "discovery.zen.ping.unicast.hosts=10.5.1.128"
       - "discovery.type=single-node"
     ulimits:
       memlock:
@@ -252,7 +252,7 @@ services:
   logstash:
     image: logstash:7.7.0
     container_name: log-stash
-    hostname: logstash
+    hostname: 10.5.1.128
     ports:
       - "5000:5000"
     expose:
@@ -260,7 +260,7 @@ services:
     volumes:
       - /Users/Shared/data/tools/logstash/:/tmp/
     command: >
-      logstash --debug -e 'input { tcp { port => 5000 codec => json { charset => "UTF-8" } } } output { elasticsearch { hosts => "elasticsearch:9200" } }'
+      logstash --debug -e 'input { tcp { port => 5000 codec => json { charset => "UTF-8" } } } output { elasticsearch { hosts => "10.5.1.128:9200" } }'
     depends_on:
       - elasticsearch
     networks:

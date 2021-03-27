@@ -37,10 +37,10 @@ spring:
   profiles: docker
   cloud:
     consul:
-      host: consul
+      host: 10.5.1.128
       port: 8500
       discovery:
         hostName: api-gateway
-        instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+        instanceId: ${spring.application.name}:10.5.1.128:${random.value}}
         healthCheckPath: /actuator/health
         healthCheckInterval: 15s

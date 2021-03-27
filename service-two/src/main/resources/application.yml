@@ -59,11 +59,11 @@ spring:
     - org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration
   cloud:
     consul:
-      host: consul
+      host: 10.5.1.128
       port: 8500
       discovery:
-        hostName: service-two
-        instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+        hostName: 10.5.1.128
+        instanceId: ${spring.application.name}:10.5.1.128:${random.value}}
         healthCheckPath: ${management.contextPath}/health
         healthCheckInterval: 15s
     loadbalancer.ribbon.enabled: false
@@ -79,14 +79,14 @@ spring:
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
   rabbitmq:
-    host: rabbit
+    host: 10.5.1.128
     port: 5672
     username: mudigal
     password: mudigal
     virtualHost: /
 
 logstash:
-  servers: logstash:5000
+  servers: 10.5.1.128:5000
 
 logging:
   file: service-two-application.log
